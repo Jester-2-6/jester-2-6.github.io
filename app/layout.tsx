@@ -26,7 +26,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     url: "https://chinthana-w.github.io",
     jobTitle: "Software & Systems Engineer",
     description: "Software and systems engineer with experience in production software, ML tooling, ASIC/EDA-adjacent workflows, and AI-assisted engineering tools.",
-    alumniOf: "Southern Illinois University Carbondale",
+    affiliation: {
+      "@type": "CollegeOrUniversity",
+      name: "Southern Illinois University Carbondale",
+    },
     knowsAbout: ["Software Engineering","Systems Engineering","ASIC/EDA Workflows","DFT Concepts","ATPG","Full-Stack Systems","ML Tooling","AI-Assisted Engineering Tools","React","TypeScript","Python","PyTorch","CUDA","Verilog","FPGA","AWS"]
   };
 
