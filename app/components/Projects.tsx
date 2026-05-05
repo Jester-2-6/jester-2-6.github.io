@@ -95,11 +95,11 @@ export default function Projects() {
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl font-bold text-[#1d1d1f] mb-2">
           <span className="text-[#0071e3] font-mono text-xl mr-3">05.</span>
-          GitHub Showcase
+          Additional GitHub Projects
         </h2>
         <div className="w-48 h-0.5 bg-[#d2d2d7] mb-4" />
         <p className="text-[#6e6e73] mb-12">
-          What I&apos;m working on these days. Check out{" "}
+          Additional public repositories, experiments, and older hardware/software projects. Check out{" "}
           <a
             href={`https://github.com/${GITHUB_USERNAME}`}
             target="_blank"

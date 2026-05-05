@@ -20,8 +20,8 @@ export default function Home() {
         <Timeline />
         <NotableProjects />
         <Projects />
-        <Hobbies />
         <Contact />
+        <Hobbies />
       </main>
       <Footer />
     </>
