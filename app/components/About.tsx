@@ -14,35 +14,23 @@ export default function About() {
         <div className="grid md:grid-cols-3 gap-12 items-start">
           <div className="md:col-span-2 space-y-4 text-[#1a1a1a] leading-relaxed">
             <p>
-              Hello! I&apos;m Chinthana, a software engineer with 4+ years of
-              professional full-stack web development and systems-level design
-              experience. My journey spans from crafting modern SPAs and cloud
-              infrastructure to writing bare-metal firmware and FPGA logic.
+              I&apos;m a software engineer who works well at the boundary between product software, systems tooling, and hardware-aware engineering workflows. I like owning practical problems end to end: understanding the workflow, building the software, testing the release, and debugging what breaks.
             </p>
             <p>
-              I&apos;ve found that the best software comes from 
-              fast-moving teams that aren&apos;t afraid of hard problems.
-              My background is in end-to-end ownership, handling things from 
-              design decisons to testing and deployment. I value clean code, 
-              automated testing, and a deployment process that just works, 
-              so we can focus on building what matters.
+              My professional background includes production full-stack work at Cut+Dry across React, React Native, TypeScript, GraphQL, and cloud-backed logistics workflows. My research and project work extends into ML systems, CUDA/PyTorch tooling, FPGA-based systems, circuit testing, and EDA tool infrastructure.
             </p>
             <p>
-              Currently pursuing a Master&apos;s in Electrical &amp; Computer
-              Engineering at Southern Illinois University Carbondale (GPA 4.0),
-              where I research methods to accelerate circuit testing with deep learning.
-              I also handle the management of the department UNIX system Lab 
-              and the EDA research cluster.
+              I&apos;m currently pursuing an M.S. in Electrical &amp; Computer Engineering at Southern Illinois University Carbondale, where I work on simulation-aware AI for circuit testing and manage UNIX/EDA lab infrastructure supporting Synopsys/Cadence research users.
             </p>
             <p>Here are a few technologies I&apos;ve been working with recently:</p>
             <ul className="grid grid-cols-2 gap-2 mt-4">
               {[
-                "C/C++ / CUDA",
+                "Python / PyTorch",
+                "C++ / CUDA",
+                "Verilog / FPGA",
                 "TypeScript / React",
-                "Python",
-                "Node.js / GraphQL",
-                "Docker / k3s",
-                "FPGA / Baremetal C",
+                "AWS / Docker",
+                "Linux / EDA Tools",
               ].map((tech) => (
                 <li key={tech} className="flex items-center gap-2 text-sm">
                   <span className="text-[#0071e3]">▹</span>

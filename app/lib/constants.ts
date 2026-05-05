@@ -28,10 +28,10 @@ export const TIMELINE_ITEMS: TimelineItem[] = [
     location: "Carbondale, IL",
     highlights: [
       "GPA: 4.0/4.0",
-      "Researching Physics-Informed AI for circuit testing using multi-path transformers and 3-valued logic integrated into a classical ATPG backtrace loop.",
-      "Engineered LUTorch — a PyTorch C++/CUDA extension that simulates memristor crossbar arrays, achieving ~95% of SPICE accuracy at orders-of-magnitude faster speed.",
-      "Manages the department UNIX system lab, provisioning Synopsys/Cadence EDA tools and supporting research users.",
-      "Set up and manages a containerized mini cluster using Docker, k3s, and TrueNAS for automated provisioning and redundancy.",
+      "Building a simulation-aware AI solver for circuit testing that combines circuit constraints, simulator feedback, and neural models to reduce repeated test-generation effort.",
+      "Built LUTorch, a C++/CUDA PyTorch extension that approximates circuit behavior without keeping SPICE in the loop, exposing a Python API for fast experimentation and achieving ~95% agreement with circuit-level behavior.",
+      "Manage the department UNIX system lab, provision Synopsys/Cadence EDA tools, and support research users.",
+      "Set up and manage a containerized mini cluster using Docker, k3s, and TrueNAS for automated provisioning and redundancy.",
     ],
   },
   {
@@ -41,10 +41,11 @@ export const TIMELINE_ITEMS: TimelineItem[] = [
     organization: "Cut+Dry",
     location: "San Jose, CA (Remote)",
     highlights: [
-      "Led the logistics engineering team, taking full ownership of the \"Track+\" enterprise platform's development lifecycle within an Agile environment.",
-      "Architected highly responsive SPAs and cross-platform mobile apps using React, TypeScript, and GraphQL, and worked with their custom graph database system.",
-      "Scaled AWS cloud infrastructure to process high-volume, real-time logistics data streams with near-zero downtime.",
-      "Drove a culture of quality through strict peer code reviews (git), CI/CD pipelines, and comprehensive end-to-end and unit testing (PHPUnit/PyTest).",
+      "Owned production features for the Track+ logistics platform across React, React Native, TypeScript, GraphQL, and AWS-backed services.",
+      "Took work from requirements through implementation, testing, deployment, production debugging, and user feedback.",
+      "Built user-facing workflows for real-time logistics operations, working directly with product, operations, and end users to turn ambiguous field problems into shipped improvements.",
+      "Improved engineering quality through Git-based code reviews, CI/CD workflows, automated tests, documentation, and release validation.",
+      "Took on additional ownership in a small engineering team, including task planning, technical documentation, mentoring newer contributors, and coordinating fixes across product and operations.",
     ],
   },
   {
@@ -66,55 +67,40 @@ export const TIMELINE_ITEMS: TimelineItem[] = [
     organization: "Wave Computing",
     location: "Santa Clara, CA (Remote)",
     highlights: [
-      "Wrote highly optimized, object-oriented C/C++ and Python to build \"WavePy,\" a custom compiler and simulator for a novel multi-core architecture.",
-      "Engineered a hardware abstraction layer allowing standard Python to automatically compile down to the chip's custom C-based interface.",
-      "Collaborated tightly with hardware teams in a multi-OS/Linux environment to validate software algorithms and data flows before physical silicon was available.",
+      "Developed C/C++ and Python components for WavePy, a compiler and simulator for a custom multi-core architecture.",
+      "Built a hardware abstraction layer that allowed Python workflows to interface with lower-level C-based chip APIs.",
+      "Worked with hardware engineers in Linux-based environments to validate algorithms, debug simulator behavior, and identify root causes before silicon availability.",
+      "Wrote maintainable object-oriented code and testable software components for early-stage ML systems tooling.",
     ],
   },
 ];
 
 export const SKILLS = [
-  {
-    category: "Languages",
-    items: ["C/C++", "TypeScript", "JavaScript", "Python", "Assembly", "PHP", "SQL", "Verilog", "Rust", "Java"],
-  },
-  {
-    category: "Frontend & Web",
-    items: ["React", "React Native", "Next.js", "Node.js", "RESTful APIs", "GraphQL", "HTML/CSS"],
-  },
-  {
-    category: "Embedded & Systems",
-    items: ["Baremetal C", "Linux Systems", "Firmware", "FPGA", "I2C/SPI", "CUDA"],
-  },
-  {
-    category: "Tools & Domain",
-    items: ["Git", "Docker", "CI/CD", "CMake", "PyTest", "PHPUnit", "Agile", "k3s", "AWS"],
-  },
-  {
-    category: "AI & Agentic Coding",
-    items: ["Cursor", "Claude Code", "Gemini CLI", "OpenClaw", "LangChain", "RAG", "LLM-Assisted Coding"],
-  },
+  { category: "Languages", items: ["Python", "C/C++", "TypeScript", "JavaScript", "SQL", "Verilog", "Assembly", "PHP", "Rust", "Java", "TCL"] },
+  { category: "Software & Product", items: ["React", "React Native", "Next.js", "Node.js", "REST APIs", "GraphQL", "HTML/CSS", "SPAs"] },
+  { category: "Systems, ASIC & EDA", items: ["Linux systems", "Verilog", "FPGA", "bare-metal C", "protocol design", "Synopsys/Cadence tools", "DFT concepts", "ATPG concepts", "simulator/debug tooling"] },
+  { category: "Backend, Cloud & Infrastructure", items: ["AWS", "Docker", "Redis", "Kafka", "CI/CD", "k3s", "TrueNAS", "CMake", "Git"] },
+  { category: "AI & ML Tooling", items: ["PyTorch", "CUDA", "C++/Python bindings", "RAG", "LangChain", "LLM-assisted coding", "tool-using AI workflows", "numerical debugging"] },
+  { category: "Engineering Practice", items: ["End-to-end ownership", "production debugging", "code reviews", "automated testing", "release validation", "technical documentation", "root-cause analysis", "cross-functional execution"] },
 ];
 
 export const NOTABLE_PROJECTS = [
   {
-    title: "Topology-Aware AI for Circuit Testing",
+    title: "Simulation-Aware AI Solver for Circuit Testing",
     description:
-      "Topology-Aware Justification Oracle for digital circuits using Multi-Path Transformers and 3-Valued Logic (0, 1, X). Topology-aware embeddings maintain global consistency across reconvergent paths, while a differentiable logic consistency loss enforces Boolean truth tables during training. The AI model is integrated directly into a classical PODEM ATPG backtrace loop, reducing test-generation backtrack counts and accelerating fault coverage. Developed as M.S. research at SIUC with RL fine-tuning support for continuous self-improvement.",
-    tags: ["Python", "PyTorch", "Transformers", "ATPG", "RL", "Research"],
+      "AI-assisted circuit testing tool that combines circuit topology, 3-valued logic, and simulator feedback to guide automated test generation. The project explores how neural models can reduce repeated backtracking in ATPG-style workflows while preserving circuit-level consistency.",
+    tags: ["Python", "PyTorch", "Circuit Testing", "ATPG", "DFT", "AI Tools", "Research"],
     href: "https://github.com/chinthana-w/s-imply",
     featured: true,
-    // image: "/projects/s-imply.png",
     image: "",
   },
   {
     title: "LUTorch — Memristor Crossbar Simulator",
     description:
-      "PyTorch library that simulates memristor crossbar array networks using precomputed conductance/voltage lookup tables (LUTs), eliminating the need for expensive SPICE simulations. Provides drop-in MemConv2d and MemLinear replacements compatible with any standard PyTorch training loop. Achieves ~95% of SPICE simulation accuracy at orders-of-magnitude faster speed, enabling rapid design-space exploration of analog neuromorphic hardware in software.",
-    tags: ["C++", "CUDA", "PyTorch", "Memristors", "Analog AI", "Research"],
+      "C++/CUDA PyTorch extension for fast circuit-behavior approximation using precomputed lookup tables. LUTorch exposes MemConv2d and MemLinear-style modules for PyTorch workflows, reducing dependence on repeated SPICE-style simulation while preserving close agreement with circuit-level behavior.",
+    tags: ["C++", "CUDA", "PyTorch", "Simulation", "ML Tooling", "Circuit Modeling", "Research"],
     href: "https://github.com/chinthana-w/LUTorch",
     featured: true,
-    // image: "/projects/lutorch.png",
     image: "",
   },
   {
@@ -124,17 +110,15 @@ export const NOTABLE_PROJECTS = [
     tags: ["React", "Python", "AWS", "CI/CD"],
     href: "https://github.com/abrutech/vision-traffic",
     featured: false,
-    // image: "/projects/vision-traffic.png",
     image: "",
   },
   {
     title: "Edge-Vision Traffic Sensing System",
     description:
-      "SoC implementation of a real-time traffic-sensing pipeline on a Xilinx Zynq-7 FPGA. Baremetal C code manages RTL processing logic and strict hardware timing constraints, while a Python layer handles higher-level coordination—bridging hardware and software at the edge with no OS overhead.",
-    tags: ["Baremetal C", "Python", "FPGA", "Zynq 7", "SoC"],
+      "SoC implementation of a real-time traffic-sensing pipeline on a Xilinx Zynq-7 FPGA. Bare-metal C manages RTL-facing processing logic and timing-sensitive control, while Python handles higher-level coordination.",
+    tags: ["Bare-metal C", "Python", "FPGA", "Zynq 7", "SoC"],
     href: "https://github.com/abrutech/vision-traffic-soc",
     featured: false,
-    // image: "/projects/vision-traffic-soc.png",
     image: "",
   },
   {
@@ -144,35 +128,21 @@ export const NOTABLE_PROJECTS = [
     tags: ["Verilog", "FPGA", "Protocol Design", "HDL"],
     href: "https://github.com/abrutech/system-bus",
     featured: false,
-    // image: "/projects/system-bus.png",
     image: "",
   },
   {
     title: "ABRUTECH Custom Processor & Compiler",
     description:
-      "Full processor architecture built from scratch in Verilog and implemented on an Altera DE2-115 FPGA using only ~1,000 logic elements. The 16-instruction ISA executes in 2.2 clock cycles on average and includes a special Address Maker for zero-overhead 2D matrix traversal and a shift-register bank for fast linear convolution—enabling programs as short as 30–40 bytes to downsample, upsample, and edge-detect 256×256 images. A companion Python compiler translates the human-readable ISA to machine code and catches syntax errors, while a simulator lets developers debug algorithms remotely before flashing the FPGA.",
+      "Full processor architecture built from scratch in Verilog and implemented on an Altera DE2-115 FPGA using only ~1,000 logic elements. The 16-instruction ISA executes in 2.2 clock cycles on average and includes a special Address Maker for zero-overhead 2D matrix traversal and a shift-register bank for fast linear convolution. A companion Python compiler translates the human-readable ISA to machine code, while a simulator enables remote debugging before flashing the FPGA.",
     tags: ["Assembly", "Verilog", "FPGA", "Computer Architecture", "Python"],
     href: "https://github.com/BlazeCode2/ABRUTECH_processor_automatic",
     featured: false,
-    // image: "/projects/abrutech.png",
     image: "",
   },
 ];
 
 export const SOCIAL_LINKS = [
-  {
-    label: "GitHub",
-    href: `https://github.com/${GITHUB_USERNAME}`,
-    icon: "github",
-  },
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/chinthanaw",
-    icon: "linkedin",
-  },
-  {
-    label: "Email",
-    href: "mailto:chinthana.w@siu.edu",
-    icon: "email",
-  },
+  { label: "GitHub", href: `https://github.com/${GITHUB_USERNAME}`, icon: "github" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/chinthanaw", icon: "linkedin" },
+  { label: "Email", href: "mailto:chinthana.w@siu.edu", icon: "email" },
 ];

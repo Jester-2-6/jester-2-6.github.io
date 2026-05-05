@@ -32,17 +32,14 @@ export default function Hero() {
         </h1>
 
         <h2 className="text-3xl md:text-5xl font-bold text-[#6e6e73] mb-6">
-          I build things for a smarter world.
+          I build systems software, AI tools, and hardware-aware workflows.
         </h2>
 
         <p className="max-w-2xl mx-auto text-lg text-[#6e6e73] leading-relaxed mb-3">
-          Software Engineer with 4+ years of experience across full-stack web development and
-          systems-level design, from scalable cloud applications to bare-metal
-          firmware. Currently pursuing a Master&apos;s in ECE at Southern Illinois
-          University Carbondale.
+          Software engineer and M.S. ECE candidate with experience across production software, systems tooling, ML workflows, and ASIC/EDA-adjacent research. I work with TypeScript, Python, React, AWS, C/C++, CUDA, PyTorch, Verilog, and Linux-based engineering tools, with a track record of taking ambiguous technical problems from requirements to deployment.
         </p>
         <p className="max-w-2xl mx-auto text-lg text-[#0071e3] font-mono mb-10">
-          I&apos;m open to work.
+          Open to high-ownership software, systems, DFT/ASIC, EDA tooling, and AI-assisted engineering roles.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -76,9 +73,9 @@ export default function Hero() {
         <div className="mt-10 flex flex-wrap justify-center gap-x-6 gap-y-2">
           {[
             "4+ years experience",
-            "Full-Stack",
-            "Systems & Embedded",
-            "M.S. ECE @ SIUC",
+            "Software + Systems",
+            "ASIC/EDA Research",
+            "AI-Assisted Tools",
           ].map((label) => (
             <span
               key={label}
@@ -91,7 +88,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll indicator — sits above the WIP banner */}
+      {/* Scroll indicator */}
       <div className="absolute bottom-16 left-1/2 -translate-x-1/2 animate-bounce">
         <svg
           className="w-6 h-6 text-[#6e6e73]"
@@ -106,18 +103,6 @@ export default function Hero() {
             d="M19 9l-7 7-7-7"
           />
         </svg>
-      </div>
-
-      {/* WIP banner — pinned to the very bottom */}
-      <div className="absolute bottom-0 left-0 right-0 overflow-hidden pointer-events-none select-none z-20">
-        {/* Label */}
-          <div className="flex items-center justify-center gap-2 bg-amber-400/90 py-1.5">
-          <span className="text-base leading-none">🚧</span>
-          <span className="text-amber-900 font-mono text-[11px] tracking-widest uppercase font-semibold">
-            Please pardon the dust &mdash; this site is still a work in progress!
-          </span>
-          <span className="text-base leading-none">🚧</span>
-        </div>
       </div>
     </section>
   );
