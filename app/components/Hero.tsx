@@ -2,7 +2,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-[80vh] flex items-center justify-center overflow-hidden"
+      className="relative min-h-[80vh] pt-20 flex items-center justify-center overflow-hidden"
     >
       {/* Ambient glow orbs */}
       <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#0071e3]/6 blur-[120px] pointer-events-none" />
