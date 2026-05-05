@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, FormEvent } from "react";
 import { RESUME_TEXT } from "@/app/lib/resume-text";
 import { GITHUB_USERNAME } from "@/app/lib/constants";
-import { type RagChunk, buildChunks } from "@/app/lib/rag";
+import { type RagChunk, buildChunks, buildIndex, retrieve } from "@/app/lib/rag";
 
 interface Message {
   role: "user" | "assistant";
@@ -43,11 +43,11 @@ function isClientRateLimited(): boolean {
 const INITIAL_MESSAGES: Message[] = [
   {
     role: "assistant",
-    text: "I’m Sif, a small RAG assistant built into this portfolio. Ask me about Chinthana’s software, systems, EDA, ML tooling, or project background.",
+    text: "Hi there! I'm Sif, Chinthana's AI assistant. Ask me anything about his background, skills, or projects.",
   },
   {
     role: "assistant",
-    text: "Disclaimer: I’m experimental and may be wrong. Please verify important details directly with Chinthana.",
+    text: "Disclaimer: I'm an experimental AI tool. My responses are generated automatically and may not be fully accurate. Please verify important details directly with Chinthana.",
   },
 ];
 
@@ -96,15 +96,13 @@ function CloseIcon() {
 
 function buildSystemPrompt(context: string): string {
   return (
-    `You are Sif, the portfolio assistant for Chinthana Wimalasuriya. ` +
-    `Answer briefly using only the retrieved context. ` +
-    `Highlight relevant software, systems, ASIC/EDA, DFT, ML tooling, and AI-assisted engineering experience when applicable. ` +
-    `Do not invent details or make claims not supported by context. ` +
+    `You are Sif, a warm and professional AI assistant on Chinthana Wimalasuriya's portfolio website. ` +
+    `Your goal is to leave visitors with a genuinely positive impression of Chinthana by highlighting ` +
+    `his skills, achievements, and character in an honest and enthusiastic way. ` +
+    `Be polite, friendly, and confident. Keep every response brief and to the point — two to three sentences at most. ` +
+    `Use only the retrieved context below to answer; never invent details. ` +
     `If a question is outside the context or requires Chinthana's direct involvement ` +
-    `(scheduling, availability, salary, references, etc.), respond with exactly one word: ESCALATE
-
-Context:
-${context}`
+    `(scheduling, availability, salary, references, etc.), respond with exactly one word: ESCALATE\n\nContext:\n${context}`
   );
 }
 
@@ -113,11 +111,15 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [ragReady, setRagReady] = useState(false);
   const ragIndexRef = useRef<RagChunk[]>([]);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   // Fetch GitHub repos and build the RAG vector index on mount.
   useEffect(() => {
+    const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+    if (!apiKey) return;
+
     fetch(
       `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=50&type=public`,
       { headers: { Accept: "application/vnd.github.v3+json" } }
@@ -125,7 +127,9 @@ export default function ChatWidget() {
       .then((r) => (r.ok ? r.json() : []))
       .then(async (repos: GitHubRepoSummary[]) => {
         const chunks = buildChunks(RESUME_TEXT, repos);
-        ragIndexRef.current = chunks.map((c) => ({ ...c, embedding: [] }));
+        const index = await buildIndex(chunks, apiKey);
+        ragIndexRef.current = index;
+        setRagReady(true);
       })
       .catch(() => {
         // Fallback: build index from resume only, without embeddings.
@@ -161,6 +165,14 @@ export default function ChatWidget() {
     setLoading(true);
 
     try {
+      const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+      if (!apiKey) {
+        setMessages((prev) => [
+          ...prev,
+          { role: "assistant", text: "Chat is not configured yet. Please check back later." },
+        ]);
+        return;
+      }
 
       const history = messages
         .filter((m) => !m.escalate)
@@ -171,27 +183,36 @@ export default function ChatWidget() {
         }));
 
       // RAG: retrieve the most relevant chunks for this query.
-      const context = ragIndexRef.current.length
-        ? ragIndexRef.current.map((c) => c.text).join("\n\n")
-        : RESUME_TEXT;
+      let context: string;
+      if (ragReady && ragIndexRef.current.length > 0) {
+        const retrieved = await retrieve(userText, ragIndexRef.current, apiKey);
+        context = retrieved.join("\n\n---\n\n");
+      } else {
+        // Fallback: concatenate all chunk texts (no embedding similarity used).
+        context = ragIndexRef.current.length
+          ? ragIndexRef.current.map((c) => c.text).join("\n\n")
+          : RESUME_TEXT;
+      }
 
-      const requestBody = {
-        systemPrompt: buildSystemPrompt(context),
-        history,
-        userText,
-      };
+      const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+      const requestBody = JSON.stringify({
+        system_instruction: { parts: [{ text: buildSystemPrompt(context) }] },
+        contents: [...history, { role: "user", parts: [{ text: userText }] }],
+        generationConfig: { maxOutputTokens: 700, temperature: 0.5 },
+      });
 
-      let res = await fetch("/api/chat", {
+      // Retry once after a short delay on 429.
+      let res = await fetch(GEMINI_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(requestBody),
+        body: requestBody,
       });
       if (res.status === 429) {
         await new Promise((r) => setTimeout(r, 3000));
-        res = await fetch("/api/chat", {
+        res = await fetch(GEMINI_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(requestBody),
+          body: requestBody,
         });
       }
 
@@ -199,7 +220,7 @@ export default function ChatWidget() {
         let reason = "";
         try {
           const errData = await res.json();
-          reason = errData?.error ?? "";
+          reason = errData?.error?.message ?? "";
         } catch { /* ignore */ }
 
         const text =
