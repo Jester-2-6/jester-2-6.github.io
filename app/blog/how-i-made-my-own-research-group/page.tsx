@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 
@@ -88,6 +89,18 @@ export default function MultiAgentExperimentPostPage() {
 
             <h2 className="text-2xl font-bold text-[#1d1d1f] pt-4">How It Works</h2>
             <WorkflowDiagram />
+            <figure className="rounded-2xl border border-[#d2d2d7] bg-[#f8f8fc] p-3 my-10">
+              <Image
+                src="https://github.com/user-attachments/assets/58a5648d-ff30-4d48-a541-8cc3bdbe3012"
+                alt="Terminal monitor showing coordinated progress across multiple orchestration agents."
+                width={1919}
+                height={1079}
+                className="w-full rounded-xl border border-[#d2d2d7]"
+              />
+              <figcaption className="text-sm text-[#6e6e73] mt-3 px-1">
+                A showcase of how the system works with multiple agents in tandem.
+              </figcaption>
+            </figure>
             <p>
               The runtime follows staged flow. First come one or more coding agents, launched in parallel when needed. They receive a narrow goal, scoped file ownership boundaries, and explicit instructions to stop once ready for validation. This is not a go-fix-the-whole-repo setup. It is a take-this-slice, make-it-correct, and leave-breadcrumbs setup.
             </p>
