@@ -83,7 +83,7 @@ export default function Navbar() {
       if (el) observer.observe(el);
     });
     return () => observer.disconnect();
-  }, [isHomePage, pathname]);
+  }, [isHomePage]);
 
   const highlightedSection = isHomePage
     ? activeSection
