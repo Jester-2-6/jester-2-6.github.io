@@ -59,7 +59,7 @@ export default function Hobbies() {
     <section id="hobbies" className="py-24 px-6 bg-[#fafafa]">
       <div className="max-w-5xl mx-auto">
         <h2 className="text-3xl font-bold text-[#1d1d1f] mb-2">
-          <span className="text-[#0071e3] font-mono text-xl mr-3">06.</span>
+          <span className="text-[#0071e3] font-mono text-xl mr-3">07.</span>
           Off the Clock
         </h2>
         <div className="w-48 h-0.5 bg-[#d2d2d7] mb-12" />

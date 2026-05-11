@@ -36,6 +36,14 @@ function NavIcon({ href, size = "w-4 h-4" }: { href: string; size?: string }) {
           <rect x="3" y="13" width="8" height="8" rx="1" />
         </svg>
       );
+    case "#blog":
+      return (
+        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M5 4h10a4 4 0 014 4v11a1 1 0 01-1.447.894L15 18.618l-2.553 1.276A1 1 0 0111 19V4z" />
+          <line x1="8" y1="8" x2="13" y2="8" />
+          <line x1="8" y1="11" x2="13" y2="11" />
+        </svg>
+      );
     case "#contact":
       return (
         <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
