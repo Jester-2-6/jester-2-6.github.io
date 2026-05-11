@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { NAV_LINKS } from "@/app/lib/constants";
 
 function NavIcon({ href, size = "w-4 h-4" }: { href: string; size?: string }) {
@@ -58,8 +59,12 @@ function NavIcon({ href, size = "w-4 h-4" }: { href: string; size?: string }) {
 
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState<string>("");
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
 
   useEffect(() => {
+    if (!isHomePage) return;
+
     const ids = NAV_LINKS.map((l) => l.href.slice(1));
     const observer = new IntersectionObserver(
       (entries) => {
@@ -78,7 +83,15 @@ export default function Navbar() {
       if (el) observer.observe(el);
     });
     return () => observer.disconnect();
-  }, []);
+  }, [isHomePage, pathname]);
+
+  const highlightedSection = isHomePage
+    ? activeSection
+    : pathname.startsWith("/blog")
+      ? "#blog"
+      : "";
+  const logoHref = isHomePage ? "#hero" : "/#hero";
+  const resolveNavHref = (href: string) => (isHomePage ? href : `/${href}`);
 
   return (
     <>
@@ -86,7 +99,7 @@ export default function Navbar() {
       <nav className="fixed top-0 left-0 right-0 z-50 hidden md:flex items-center justify-between px-8 py-5">
         {/* Logo pill */}
         <a
-          href="#hero"
+          href={logoHref}
           className="relative overflow-hidden flex items-center px-4 py-1.5 rounded-full bg-white/40 backdrop-blur-2xl border border-white/40 shadow-[0_4px_20px_rgba(0,0,0,0.10),inset_0_1px_0_rgba(255,255,255,0.8)] text-[#0071e3] font-bold font-mono tracking-tight hover:bg-white/55 transition-all duration-200"
         >
           <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/25 to-transparent pointer-events-none" aria-hidden="true" />
@@ -97,11 +110,11 @@ export default function Navbar() {
         <div className="relative flex items-center px-1.5 py-1.5 rounded-full bg-white/30 backdrop-blur-2xl border border-white/35 shadow-[0_8px_32px_rgba(0,0,0,0.10),inset_0_1px_0_rgba(255,255,255,0.65)]">
           <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/20 to-transparent pointer-events-none" aria-hidden="true" />
           {NAV_LINKS.map((link) => {
-            const isActive = activeSection === link.href;
+            const isActive = highlightedSection === link.href;
             return (
               <a
                 key={link.href}
-                href={link.href}
+                href={resolveNavHref(link.href)}
                 className={`relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-semibold transition-all duration-300 select-none ${
                   isActive ? "text-[#1d1d1f]" : "text-[#555] hover:text-[#1d1d1f]"
                 }`}
@@ -136,11 +149,11 @@ export default function Navbar() {
         <div className="relative flex items-center px-1.5 py-1.5 rounded-full bg-white/30 backdrop-blur-2xl border border-white/35 shadow-[0_8px_32px_rgba(0,0,0,0.10),inset_0_1px_0_rgba(255,255,255,0.65)]">
           <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/20 to-transparent pointer-events-none" aria-hidden="true" />
           {NAV_LINKS.map((link) => {
-            const isActive = activeSection === link.href;
+            const isActive = highlightedSection === link.href;
             return (
               <a
                 key={link.href}
-                href={link.href}
+                href={resolveNavHref(link.href)}
                 className={`relative flex flex-col items-center gap-0.5 px-3 py-2 rounded-full font-semibold transition-all duration-300 select-none ${
                   isActive ? "text-[#1d1d1f]" : "text-[#555]"
                 }`}
