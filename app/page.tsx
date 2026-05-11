@@ -5,6 +5,7 @@ import Skills from "@/app/components/Skills";
 import Timeline from "@/app/components/Timeline";
 import NotableProjects from "@/app/components/NotableProjects";
 import Projects from "@/app/components/Projects";
+import BlogSection from "@/app/components/BlogSection";
 import Hobbies from "@/app/components/Hobbies";
 import Contact from "@/app/components/Contact";
 import Footer from "@/app/components/Footer";
@@ -20,6 +21,7 @@ export default function Home() {
         <Timeline />
         <NotableProjects />
         <Projects />
+        <BlogSection />
         <Hobbies />
         <Contact />
       </main>

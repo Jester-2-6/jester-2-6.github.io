@@ -1,4 +1,4 @@
-import { SOCIAL_LINKS, GITHUB_USERNAME } from "@/app/lib/constants";
+import { SOCIAL_LINKS } from "@/app/lib/constants";
 
 function GitHubIcon() {
   return (
@@ -44,7 +44,7 @@ export default function Contact() {
     <section id="contact" className="py-24 px-6 bg-white">
       <div className="max-w-3xl mx-auto text-center">
         <h2 className="text-3xl font-bold text-[#1d1d1f] mb-2">
-          <span className="text-[#0071e3] font-mono text-xl mr-3">07.</span>
+          <span className="text-[#0071e3] font-mono text-xl mr-3">08.</span>
           Get In Touch
         </h2>
         <div className="w-36 h-0.5 bg-[#d2d2d7] mx-auto mb-8" />
